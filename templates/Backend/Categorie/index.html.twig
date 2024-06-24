@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Administration des catégories
+{% endblock %}
+
+{% block body %}
+    <h1>Administration des catégories</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Actif</th>
+                <th>Date de création</th>
+                <th>Dernière modification</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categorie in categories %}
+                <tr>
+                    {# entity.champ = search for its getter #}
+                    <td>{{ categorie.id }}</td>
+                    <td>{{ categorie.name }}</td>
+                    <td>{{ categorie.enable ? 'Actif' : 'Inactif' }}</td>
+                    <td>{{ categorie.createdAt|date('Y/m-d H-i:s') }}</td>
+                    <td>{{ categorie.updateAt|date('Y:m/d H:i/s') }}</td>
+                    <td>
+                        {# <a href="http://localhost:8000/admin/categories/{{categorie.id}}/update">Modifier</a> #} 
+                        <a href="{{ path('admin.categories.update', {id: categorie.id}) }}">Modifier</a>
+                        {% include 'Backend/Categorie/_form.html.twig' %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
