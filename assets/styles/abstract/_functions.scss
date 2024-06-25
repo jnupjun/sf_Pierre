@@ -1,0 +1,23 @@
+@function getTextColor($bgColor, $active: false) {
+
+    // every color has a lightness, here we calibrate the color of the text in relation to the bg color
+    @if (lightness($bgColor) > 50) {
+        @if $active {
+            @return lighten($text-color, 20%);
+        }
+
+        @else {
+            @return $text-color;
+        }
+    }
+
+    @else {
+        @if $active {
+            @return darken($white, 20%);
+        }
+
+        @else {
+            @return $white;
+        }
+    }
+}

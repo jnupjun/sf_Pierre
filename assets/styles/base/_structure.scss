@@ -1,0 +1,27 @@
+html, body{
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
+img, video, figure {
+    max-width: 100%;
+    object-fit: cover;
+}
+
+ul, ol {
+    list-style: none;
+    padding: 0;
+}
+
+p {
+    margin-bottom: 0.5em;
+    &:last-of-type {
+        margin-bottom: 1em;
+    }
+}
+
