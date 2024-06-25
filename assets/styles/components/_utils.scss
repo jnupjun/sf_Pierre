@@ -1,4 +1,4 @@
-.text-center{
+.text-center {
     text-align: center;
 }
 
@@ -11,9 +11,13 @@ $place: (
 
 @each $key, $value in $place {
     @for $i from 1 through 5 {
+
+        // loop for the margin
         .m#{$value}-#{$i} {
             margin-#{$key}: #{$i * 0.5}em;
         }
+
+        // loop for the padding
         .p#{$value}-#{$i} {
             padding-#{$key}: #{$i * .5}em;
         }
