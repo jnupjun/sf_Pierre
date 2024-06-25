@@ -1,0 +1,23 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid $text-color;
+    text-align: center;
+
+    th,
+    td {
+        border: 1px solid $text-color;
+        padding: 1em 0;
+
+        .cell-flex {
+            /* Why add & try remove div */
+            @include flex(space-around);
+            // display: flex;
+            // align-items: center;
+            // justify-content: space-around;
+            // flex-wrap: wrap;
+        }
+    }
+
+    border-radius: 0%;
+}

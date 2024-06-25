@@ -1,0 +1,21 @@
+.text-center{
+    text-align: center;
+}
+
+$place: (
+    "top": "t",
+    "right": "e",
+    "bottom": "b",
+    "left": "s"
+);
+
+@each $key, $value in $place {
+    @for $i from 1 through 5 {
+        .m#{$value}-#{$i} {
+            margin-#{$key}: #{$i * 0.5}em;
+        }
+        .p#{$value}-#{$i} {
+            padding-#{$key}: #{$i * .5}em;
+        }
+    }
+}
