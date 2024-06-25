@@ -1,0 +1,43 @@
+.navbar {
+    background: $primary;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    // change text color with background
+    color: getTextColor($primary);
+
+    &-content {
+        @include flex(flex-start, center, $gap: 2em);
+
+        padding: 1em 0;
+    }
+
+    &-links {
+        @include flex(flex-start, center, $gap: 1em);
+
+        margin-bottom: 0; // put it in the abstract 
+        flex: 1;
+    }
+
+    &-logo {
+        font-weight: bold;
+        font-size: $h4-font-size;
+    }
+
+    &-link {
+        a {
+            // in case we want a section with a focus in its anchored text, we pass the parameter to true to define it
+            color: getTextColor($primary, true);
+
+            &.active {
+                color: getTextColor($primary);
+            }
+        }
+    }
+
+    &-btn-links {
+        @include flex(flex-end, center, $gap: 1em);
+
+        margin-bottom: 0;
+    }
+}
