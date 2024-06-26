@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'Cet email est déjà utilisé par un autre compte')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
-// quand une classe implémente une interface, elle est obligée de la définir algorythmiquement
+// quand une classe implémente une interface, elle est obligée de la définir algorithmiquement
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,7 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    #[Assert\NotBlank] # there's already a default message
+    #[Assert\NotBlank] # there's already a default message, no need to add one
     #[Assert\Length(
         max: 180,
         maxMessage: 'l\'email ne doit pas dépasser {{ limit }} caractères',

@@ -12,8 +12,14 @@
 			</li>
 		</ul>
 		<ul class="navbar-btn-links">
-			<li class="navban-btn-link">
-				<a href="#" class="btn btn-secondary">Se connecter</a>
+			<li
+				class="navban-btn-link">
+				{#{{ dump(app.user) }}#}
+				{% if app.user %}
+					<a href="/logout" data-turbo="false" class="btn btn-danger">Se Déconnecter</a>
+				{% else %}
+					<a href="{{ path('app.login') }}" class="btn btn-secondary">Se Connecter</a>
+				{% endif %}
 			</li>
 		</ul>
 	</nav>

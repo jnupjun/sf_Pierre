@@ -19,7 +19,7 @@ class AppFixtures extends Fixture
         $this->faker = Factory::create('fr_FR');
     }
     public function load(ObjectManager $manager): void
-    # ObjectManager = EntityManagerInterface
+    # ObjectManager === EntityManagerInterface
     {
         // $product = new Product();
         // $manager->persist($product);
