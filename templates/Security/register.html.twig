@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	S'inscrire
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-2">
+		<h1 class="text-center">S'inscrire</h1>
+		{{ form_start(form, {attr: {class: 'card w-75 mx-auto' } }) }}
+
+		{# https://symfony.com/doc/current/form/form_customization.html#form-themes #}
+		<div class="row">
+			<div class="col-md-6">
+				{{ form_row(form.firstName) }}
+			</div>
+			<div class="col-md-6">
+				{{ form_row(form.lastName) }}
+			</div>
+		</div>
+
+		{{ form_widget(form) }}
+		<button type="submit" class="btn btn-primary">S'inscrire</button>
+		{{ form_end(form) }}
+	</section>
+{% endblock %}
