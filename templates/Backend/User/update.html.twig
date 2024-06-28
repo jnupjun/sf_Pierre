@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Modification d'un usager
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-2">
+		<h1 class="text-center">Modification d'un usager</h1>
+		{{ form_start(form, {attr: {class: 'card w-75 mx-auto'}})}}
+		{{ form_widget(form) }}
+		<button type="submit" class="btn btn-primary">Modifier</button>
+		{{ form_end(form) }}
+		<a href="{{ path('admin.users.index') }}" class="btn btn-secondary mt-2">Retour à la liste</a>
+	</section>
+{% endblock %}
