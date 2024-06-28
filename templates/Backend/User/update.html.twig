@@ -8,6 +8,7 @@
 {% block body %}
 	<section class="container mt-2">
 		<h1 class="text-center">Modification d'un usager</h1>
+		{# La création du formulaire avec form_start et form_end permet la génération de token automatique #}
 		{{ form_start(form, {attr: {class: 'card w-75 mx-auto'}})}}
 		{{ form_widget(form) }}
 		<button type="submit" class="btn btn-primary">Modifier</button>

@@ -2,15 +2,23 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\EnableTrait;
+use App\Entity\Traits\DateTimeTrait;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\Mapping as ORM; # ORM becomes an alias
 
 # #[Alias\Class] = Attributs PHP 8
 # Always present in every entity
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
+
 #[ORM\HasLifecycleCallbacks]
+# DateTimeTrait can't refactor the php8 attributes as they are above the class and not inside it !
+
 class Category
 {
+    use EnableTrait,
+        DateTimeTrait;
+
     #[ORM\Id] # Primary Key
     #[ORM\GeneratedValue] # Auto-increment
     #[ORM\Column]
@@ -23,14 +31,17 @@ class Category
     #[ORM\Column(length: 255)] # varchar
     private ?string $name = null;
 
+    /* THESE PROPERTIES ARE PUT IN TRAITS
     #[ORM\Column]
     private ?bool $enable = null;
+    
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updateAt = null;
+    */
 
     public function getId(): ?int
     {
@@ -49,6 +60,7 @@ class Category
         return $this;
     }
 
+    /* THESE METHODS ARE PUT IN TRAITS
     public function isEnable(): ?bool
     {
         return $this->enable;
@@ -60,7 +72,7 @@ class Category
 
         return $this;
     }
-
+    
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -102,4 +114,5 @@ class Category
 
         return $this;
     }
+    */
 }

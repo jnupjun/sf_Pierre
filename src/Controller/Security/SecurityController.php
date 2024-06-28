@@ -44,6 +44,7 @@ class SecurityController extends AbstractController
             # TODO: hash passwd and persist
             # dd($user);
             $user
+
                 ->setPassword(
                     $hasher->hashPassword($user, $form->get('password')->getData())
                     # get password returns all the field (mapped to false in the UserType form)

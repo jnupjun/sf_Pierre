@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Éditions des articles
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-2">
+		<h1 class="text-center">Éditions des Articles</h1>
+		<a href="{{ path('admin.article.create') }}" class="btn btn-primary">Créer un article</a>
+		<div class="row mt-2 gy-4">
+			{% for article in articles %}
+				<div class="col-md-4">
+					<div class="card">
+						<h4>
+							{{ article.title }}
+						</h4>
+						<p>
+							Text
+						</p>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</section>
+{% endblock %}
