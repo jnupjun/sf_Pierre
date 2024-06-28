@@ -2,19 +2,24 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\DateTimeTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Traits\EnableTrait;
 use App\Repository\ArticleRepository;
-use DateTime;
-use DateTimeImmutable;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\HasLifecycleCallbacks]
+#[ORM\UniqueConstraint(name: 'UNIQUE_ARTICLE_TITLE', fields: ['title'])]
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[UniqueEntity(fields: ['title'], message: 'Ce titre à déjà été utilisé pour un autre article')]
 class Article
 {
+    use EnableTrait,
+        DateTimeTrait;
+    # Les traits factorisent les propriétés et leur méthodes
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -23,8 +28,10 @@ class Article
     #[ORM\Column(length: 100)]
     #[Assert\NotBlank]
     #[Assert\Length(
+        min: 3,
         max: 100,
-        maxMessage: 'le titre ne doit pas dépasser {{ limit }} caractères',
+        # maxMessage: 'le titre ne doit pas dépasser {{ limit }} caractères',
+        # there's allways a message by default
     )]
     private ?string $title = null;
 
@@ -35,15 +42,6 @@ class Article
         maxMessage: 'le texte ne doit pas dépasser {{ limit }} caractères',
     )]
     private ?string $content = null;
-
-    #[ORM\Column]
-    private ?bool $enable = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $updateAt = null;
 
     public function getId(): ?int
     {
@@ -70,54 +68,6 @@ class Article
     public function setContent(string $content): static
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function isEnable(): ?bool
-    {
-        return $this->enable;
-    }
-
-    public function setEnable(bool $enable): static
-    {
-        $this->enable = $enable;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    #[ORM\PrePersist]
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        if (!$this->createdAt) {
-            # Why is the class backlashed ?
-            $this->createdAt = new \DateTimeImmutable();
-        }
-
-        return $this;
-    }
-
-    public function getUpdateAt(): ?\DateTimeImmutable
-    {
-        return $this->updateAt;
-    }
-
-    public function setUpdateAt(?\DateTimeImmutable $updateAt): static
-    {
-        $this->updateAt = $updateAt;
-
-        return $this;
-    }
-
-    #[ORM\PreUpdate]
-    public function autoSetUpdateAt(): static
-    {
-        $this->updateAt = new \DateTimeImmutable();
 
         return $this;
     }

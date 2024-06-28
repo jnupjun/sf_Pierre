@@ -67,7 +67,8 @@ class UserType extends AbstractType
                     ]
                 ],
                 # Break automation of the input to hash it, for the password
-                # This is the sole reason to put all constraints here !!
+                # This is the sole reason to put all constraints here 
+                # and not in the entity like the other fields !! (like email, first/lastNames)
                 'mapped' => false,
             ]);
 
