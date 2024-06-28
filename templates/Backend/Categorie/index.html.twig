@@ -31,7 +31,7 @@
 							<div
 								class="cell-flex">
 								{# <a href="http://localhost:8000/admin/categories/{{categorie.id}}/update">Modifier</a> #}
-								<a href="{{ path('admin.categories.update', {id: categorie.id}) }}">Modifier</a>
+								<a href="{{ path('admin.categories.update', {id: categorie.id}) }}" class="btn btn-warning">Modifier</a>
 								{% include 'Backend/Categorie/_form.html.twig' %}
 							</div>
 						</td>

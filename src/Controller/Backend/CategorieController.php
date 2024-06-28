@@ -20,7 +20,7 @@ class CategorieController extends AbstractController
         # EM est une entité de Doctrine
         # permet de faire apparaitre ce paramètre dans toutes les méthodes de la classe
         private EntityManagerInterface $em,
-    ){
+    ) {
     }
 
     #[Route('', name: '.index', methods: ['GET'])]
@@ -52,7 +52,7 @@ class CategorieController extends AbstractController
         $form->handleRequest($request);
 
         # si le formulaire est soumis et valide, on persiste l'objet en base de données
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             // $categorie->setCreatedAt(new \DateTimeImmutable()); # method noobie, real method : autoSetCreatedAt()
             # dd($categorie);
             # mise à la file d'attente
@@ -88,12 +88,12 @@ class CategorieController extends AbstractController
             $this->addFlash('error', 'La catégorie demandée n\'existe pas');
 
             # redirectToRoute expects a route name
-            return $this->redirectToRoute('admin.categorie.index');
+            return $this->redirectToRoute('admin.categories.index');
         }
         $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             # persist not mandatory for an update, doctrine has already persisted the data
             $this->em->persist($categorie);
             $this->em->flush();
@@ -116,8 +116,9 @@ class CategorieController extends AbstractController
         }
 
         # dd($request);
-        # l'"id" du token est specifié ligne 2 du component '_form.html.twig' il es
-        if (!$this->isCsrfTokenValid('delete'. $categorie->getId(), $request->request->get('token'))) {
+        # l'"id" du token est specifié ligne 2 du component '_form.html.twig' il est 
+        # Why the fuck did I have an '!' at if (!$this->isCsrfTokenValid(…))
+        if ($this->isCsrfTokenValid('delete' . $categorie->getId(), $request->request->get('token'))) {
             $this->em->remove($categorie);
             $this->em->flush();
 

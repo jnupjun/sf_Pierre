@@ -3,4 +3,8 @@
     box-shadow: $box-shadow-card;
     padding: 1em;
     background: $white-dark;
+
+    &-btn {
+        @include flex(flex-start, $gap: 1em);
+    }
 }

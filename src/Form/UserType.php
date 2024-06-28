@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
@@ -69,12 +70,31 @@ class UserType extends AbstractType
                 # This is the sole reason to put all constraints here !!
                 'mapped' => false,
             ]);
+
+        # Of course is Admin !!!
+        if ($options['isAdmin']) {
+            $builder
+                ->remove('password')
+                # https://symfony.com/doc/current/reference/forms/types/choice.html#example-usage
+                ->add('roles', ChoiceType::class, [
+                    'label' => 'Rôle',
+                    'choices' => [
+                        'Utilisateur' => 'ROLE_USER',
+                        'Éditeur' => 'ROLE_EDITOR',
+                        'Admin' => 'ROLE_ADMIN',
+                    ],
+                    'expanded' => true,
+                    'multiple' => true,
+                ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            # ajout de cette option pour le admin/users/id/update
+            'isAdmin' => false,
         ]);
     }
 }
