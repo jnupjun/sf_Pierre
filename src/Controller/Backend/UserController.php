@@ -65,7 +65,7 @@ class UserController extends AbstractController
     public function delete(?User $user, Request $request): RedirectResponse
     {
 
-        #dd($request->request->get('token'));
+        # dd($request->request->get('token'));
 
         if (!$user) {
             $this->addFlash('error', 'L\'utilisateur n\'existe pas');

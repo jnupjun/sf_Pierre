@@ -21,10 +21,17 @@ class ArticleType extends AbstractType
                     'placeholder' => 'Titre de l\'article',
                 ],
             ])
-            ->add('content', TextareaType::class)
+            ->add('content', TextareaType::class, [
+                'label' => 'Article',
+                'attr' => [
+                    'placeholder' => 'Contenu de l\'article',
+                    'rows' => 10,
+                ],
+            ])
             ->add('enable', CheckboxType::class, [
                 'label' => 'Actif',
                 'required' => false,
+                # by default, the required value of all types of inputs is set to true
             ]);
     }
 

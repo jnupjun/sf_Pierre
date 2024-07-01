@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Rédation d'un Article
+	{{ article.title }}
 	{{ parent() }}
 {% endblock %}
 
 {% block body %}
 	<section class="container mt-2">
-		<h1>Rédiger un article</h1>
-		{% include 'Backend/Article/_form.html.twig' with { buttonLabel: "Publier"} %}
+		<h1>{{ article.title }}</h1>
+		<p>{{ article.content }}</p>
 	</section>
 {% endblock %}
