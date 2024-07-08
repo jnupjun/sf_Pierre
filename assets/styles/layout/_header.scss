@@ -15,6 +15,7 @@
     &-links {
         @include flex(flex-start, center, $gap: 1em);
 
+        // where did we remove the the list decoration ?
         margin-bottom: 0; // put it in the abstract 
         flex: 1;
     }
