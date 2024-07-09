@@ -4,10 +4,11 @@ namespace App\Form;
 
 use App\Entity\Article;
 use App\Entity\Category;
-use App\Repository\CategoryRepository;
 use Doctrine\ORM\QueryBuilder;
+use App\Repository\CategoryRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -50,7 +51,16 @@ class ArticleType extends AbstractType
                     'rows' => 10,
                 ],
             ])
-
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Image',
+                'required' => false,
+                'allow_delete' => true,
+                'delete_label' => 'Supprimer l\'image actuelle',
+                'image_uri' => true,
+                'asset_helper' => true,
+                'download_uri' => false,
+                'download_label' => false,
+            ])
             ->add('enable', CheckboxType::class, [
                 'label' => 'Actif',
                 'required' => false,

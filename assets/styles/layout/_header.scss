@@ -5,6 +5,7 @@
     width: 100%;
     // change text color with background
     color: getTextColor($primary);
+    z-index: 9999;
 
     &-content {
         @include flex(flex-start, center, $gap: 2em);
