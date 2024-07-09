@@ -18,9 +18,20 @@
 						</h4>
 						{#https://twig.symfony.com/doc/3.x/filters/format_datetime.html#}
 						<em>{{article.createdAt|format_datetime('full', 'none')}}</em>
+
+						{# this is a DINGUERIE, thanks to the relation between User and Article entities user becomes a property in the Article class so the User class properties becomes available to the Article entity #}
+						{#{{ dump(article)}}#}
+						<p>{{article.user.fullName }}</p>
+
 						<p>{{article.content|length > 150 ? article.content|slice(0, 150) ~ '…' : article.content}}</p>
-						<div class="card-btn">
-							<a href="{{ path('admin.articles.update', {id: article.id}) }}" class="btn btn-warning">Modifier</a>
+						<p>
+							{# {{ dump}} #}
+							{# article.categories is the array of the instanciated Articles class with Categorie objects as properties values #}
+								{% for categorie in article.categories %}
+							{{categorie.name}}
+						{% endfor %}
+						</p>
+							<div class="card-btn"> <a href="{{ path('admin.articles.update', {id: article.id}) }}" class="btn btn-warning">Modifier</a>
 							{#<a href="" class="btn btn-danger">Supprimer</a>#}
 							{% include 'Backend/Article/_delete.html.twig' %}
 						</div>

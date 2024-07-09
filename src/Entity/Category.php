@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Entity\Traits\EnableTrait;
 use App\Entity\Traits\DateTimeTrait;
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM; # ORM becomes an alias
 
 # #[Alias\Class] = Attributs PHP 8
@@ -30,6 +32,17 @@ class Category
 
     #[ORM\Column(length: 255)] # varchar
     private ?string $name = null;
+
+    /**
+     * @var Collection<int, Article>
+     */
+    #[ORM\ManyToMany(targetEntity: Article::class, mappedBy: 'categories')]
+    private Collection $articles;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
     /* THESE PROPERTIES ARE PUT IN TRAITS
     #[ORM\Column]
@@ -115,4 +128,33 @@ class Category
         return $this;
     }
     */
+
+    /**
+     * @return Collection<int, Article>
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): static
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles->add($article);
+            # this line is a bit weird as its only written in this class
+            # When we put it in relation with the Article class
+            $article->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): static
+    {
+        if ($this->articles->removeElement($article)) {
+            $article->removeCategory($this);
+        }
+
+        return $this;
+    }
 }
