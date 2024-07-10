@@ -37,13 +37,16 @@
         "symfony/string": "7.1.*",
         "symfony/translation": "7.1.*",
         "symfony/twig-bundle": "7.1.*",
+        "symfony/ux-autocomplete": "^2.18",
         "symfony/ux-turbo": "^2.18",
         "symfony/validator": "7.1.*",
         "symfony/web-link": "7.1.*",
         "symfony/webpack-encore-bundle": "^2.1",
         "symfony/yaml": "7.1.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/intl-extra": "^3.10",
+        "twig/twig": "^2.12|^3.0",
+        "vich/uploader-bundle": "^2.4"
     },
     "config": {
         "allow-plugins": {
@@ -90,7 +93,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": true,
             "require": "7.1.*"
         }
     },

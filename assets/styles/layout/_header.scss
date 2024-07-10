@@ -5,6 +5,7 @@
     width: 100%;
     // change text color with background
     color: getTextColor($primary);
+    z-index: 9999;
 
     &-content {
         @include flex(flex-start, center, $gap: 2em);
@@ -15,6 +16,7 @@
     &-links {
         @include flex(flex-start, center, $gap: 1em);
 
+        // where did we remove the the list decoration ?
         margin-bottom: 0; // put it in the abstract 
         flex: 1;
     }

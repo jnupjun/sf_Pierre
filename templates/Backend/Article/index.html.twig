@@ -6,19 +6,46 @@
 {% endblock %}
 
 {% block body %}
-	<section class="container mt-2">
+	<section class="container mt-2 mb-4">
 		<h1 class="text-center">Éditions des Articles</h1>
-		<a href="{{ path('admin.article.create') }}" class="btn btn-primary">Créer un article</a>
+		<a href="{{ path('admin.articles.create') }}" class="btn btn-primary mt-2">Créer un article</a>
 		<div class="row mt-2 gy-4">
 			{% for article in articles %}
 				<div class="col-md-4">
-					<div class="card">
+					<div
+						class="card">
+						{# If stuck, always dump the stuff {{ dump(article) }} #}
+						{% if article.imageName %}
+							<img
+							class="card-img" src="{{ vich_uploader_asset(article) }}" alt="photo {{article.title}}" loading="lazy">
+						{# add ternary condition for a new pixelated class with a property and field in the bdd {{ image.pixel ? }} #}
+						{% endif %}
 						<h4>
-							{{ article.title }}
+							<a href="{{ path('admin.articles.read', {id: article.id}) }}">{{ article.title }}</a>
 						</h4>
+						{#https://twig.symfony.com/doc/3.x/filters/format_datetime.html#}
+						<em>{{article.createdAt|format_datetime('full', 'none')}}</em>
+
+						{# this is a DINGUERIE, thanks to the relation between User and Article entities user becomes a property in the Article class so the User class properties becomes available to the Article entity #}
+						{#{{ dump(article)}}#}
+						<p>{{article.user.fullName }}</p>
+
+						<p>{{article.content|length > 150 ? article.content|slice(0, 150) ~ '…' : article.content}}</p>
 						<p>
-							Text
+							{# {{ dump}} #}
+							{# article.categories is the array of the instanciated Articles class with Categorie objects as properties values #}
+								{% for categorie in article.categories %}
+							{{categorie.name}}
+							{% endfor %}
+								<div class="form-check form-switch" {{stimulus_controller('switchArticle')}}> <input class="form-check-input" type="checkbox" id="switch-visibility-article-{{ article.id }}" {{ article.enable ? 'checked' }} data-article-id="{{ article.id }}"/>
+								<label class="form-check-label text-{{ article.enable ? 'success' : 'danger' }}" for="switch-visibility-article-{{ article.id }}">{{ article.enable ? 'Actif' : 'Inactif' }}</label>
+							</div>
 						</p>
+						<div class="card-btn">
+							<a href="{{ path('admin.articles.update', {id: article.id}) }}" class="btn btn-warning">Modifier</a>
+							{#<a href="" class="btn btn-danger">Supprimer</a>#}
+							{% include 'Backend/Article/_delete.html.twig' %}
+						</div>
 					</div>
 				</div>
 			{% endfor %}
