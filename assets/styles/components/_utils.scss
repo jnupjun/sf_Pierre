@@ -2,6 +2,17 @@
     text-align: center;
 }
 
+// adding this classes 'cause we didn't import bootstrap utils
+.text {
+    &-success {
+        color: $success;
+    }
+
+    &-danger {
+        color: $danger;
+    }
+}
+
 .mx-auto {
     margin-inline: auto;
 }
