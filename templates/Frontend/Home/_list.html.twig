@@ -1,0 +1,9 @@
+<section class="container mt-2 mb-2">
+	<h1 class="text-center">Les derniers Articles</h1>
+	<a href="#" class="btn btn-primary">Les lire</a>
+	<div class="article-list">
+		{% for article in articles %}
+			{% include 'Components/_articleCard.html.twig' %}
+		{% endfor %}
+	</div>
+</section>

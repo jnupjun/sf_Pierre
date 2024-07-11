@@ -1,45 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Liste des Articles
+	Page d'accueil
 	{{ parent() }}
 {% endblock %}
 
 {% block body %}
-	<section class="container mt-2 mb-4">
-		<h1 class="text-center">Bienvenue sur le Blog</h1>
-		<div class="banner"></div>
-		<div class="row mt-2 gy-4">
-			{% for article in articles %}
-				<div class="col-md-4">
-					<div
-						class="card">
-						{# If stuck, always dump the stuff {{ dump(article) }} #}
-						{% if article.imageName %}
-							<img
-							class="card-img" src="{{ vich_uploader_asset(article) }}" alt="photo {{article.title}}" loading="lazy">
-						{# add ternary condition for a new pixelated class with a property and field in the bdd {{ image.pixel ? }} #}
-						{% endif %}
-						<h4>
-							<a href="{{ path('admin.articles.read', {id: article.id}) }}">{{ article.title }}</a>
-						</h4>
-						{#https://twig.symfony.com/doc/3.x/filters/format_datetime.html#}
-						<em>{{article.createdAt|format_datetime('full', 'none')}}</em>
-
-						{# this is a DINGUERIE, thanks to the relation between User and Article entities user becomes a property in the Article class so the User class properties becomes available to the Article entity #}
-						{#{{ dump(article)}}#}
-						<p>{{article.user.fullName }}</p>
-
-						<p>{{article.content|length > 150 ? article.content|slice(0, 150) ~ '…' : article.content}}</p>
-						<p>
-							{# {{ dump}} #}
-							{# article.categories is the array of the instanciated Articles class with Categorie objects as properties values #}
-								{% for categorie in article.categories %}
-							{{categorie.name}}
-						{% endfor %}
-					</p>
-				</div>
-			</div>
-		{% endfor %}
-	</div>
-</section>{% endblock %}
+	{% include 'Frontend/Home/_banner.html.twig' %}
+	{% include 'Frontend/Home/_list.html.twig' %}
+{% endblock %}
