@@ -1,0 +1,14 @@
+.banner {
+    @include flex(center, center);
+    height: 80vh;
+    background: center / cover url("../../images/banner-formations.jpg");
+
+    &-header {
+        padding: .5em 1em;
+        border-radius: $border-radius;
+        border: 1px solid rgba(238, 238, 238, .6);
+        background: color-mix(in srgb, $primary 20%, transparent);
+        backdrop-filter: blur(5px);
+        color: $white;
+    }
+}
