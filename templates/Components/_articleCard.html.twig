@@ -1,25 +1,27 @@
 <div
 	class="card">
-	{# If stuck, always dump the stuff {{ dump(article) }} #}
+	{# * If stuck, always dump the stuff {{ dump(article) }} #}
 	{% if article.imageName %}
-		<img
-		class="card-img" src="{{ vich_uploader_asset(article) }}" alt="photo {{article.title}}" loading="lazy">
-	{# add ternary condition for a new pixelated class with a property and field in the bdd {{ image.pixel ? }} #}
+		<a href="{{ path('app.articles.read', {id: article.id}) }}"><img class="card-img" src="{{ vich_uploader_asset(article) }}" alt="photo {{article.title}}" loading="lazy"></a>
+		{# TODO: add ternary condition for a new pixelated class with a property and field in the bdd {{ image.pixel ? }} #}
 	{% endif %}
-	<h4>
-		<a href="{{ path('admin.articles.read', {id: article.id}) }}">{{ article.title }}</a>
-	</h4>
+
+	<a href="{{ path('app.articles.read', {id: article.id}) }}">
+		<h4>{{ article.title }}</h4>
+	</a>
+
 	{#https://twig.symfony.com/doc/3.x/filters/format_datetime.html#}
 	<em>{{article.createdAt|format_datetime('full', 'none')}}</em>
 
-	{# this is a DINGUERIE, thanks to the relation between User and Article entities user becomes a property in the Article class so the User class properties becomes available to the Article entity #}
+	{# * this is a DINGUERIE, thanks to the relation between User and Article entities user becomes a property in the Article class so the User class properties becomes available to the Article entity #}
 	{#{{ dump(article)}}#}
 	<p>{{article.user.fullName }}</p>
 
-	<p>{{article.content|length > 150 ? article.content|slice(0, 150) ~ '…' : article.content}}</p>
+	<p>{{article.content|length > 150 ? article.content|striptags|slice(0, 150) ~ '…' : article.content|striptags}}</p>
+	{# Striptags to keep html without malicious injection #}
 	<p>
 		{# {{ dump}} #}
-		{# article.categories is the array of the instanciated Articles class with Categorie objects as properties values #}
+		{# * article.categories is the array of the instanciated Articles class with Categorie objects as properties values #}
 			{% for categorie in article.categories %}
 		{{categorie.name}}
 	{% endfor %}

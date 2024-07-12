@@ -1,0 +1,12 @@
+<section class="container mt-2 mb-2">
+	<h1 class="text-center">Les derniers Articles</h1>
+	{# TODO: ajouter ce titre en conditions ternaire sur la listes<h1 class="text-center">Tous nos Articles disponibles</h1> #}
+	{% if app.request.get('_route') == 'app.home' %}
+		<a href="{{ path('app.articles.index') }}" class="btn btn-primary">Les lire</a>
+	{% endif %}
+	<div class="article-list">
+		{% for article in articles %}
+			{% include 'Components/_articleCard.html.twig' %}
+		{% endfor %}
+	</div>
+</section>

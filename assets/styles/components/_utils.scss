@@ -54,3 +54,22 @@ $place: (
         }
     }
 }
+
+.badge {
+    border-radius: $border-radius;
+    padding: .5em 1em;
+
+    &-list {
+        @include flex(flex-start, center, $gap: .5em)
+    }
+}
+
+.bg {
+    &-primary {
+        background: $primary;
+    }
+
+    &-secondary {
+        background: $secondary;
+    }
+}
